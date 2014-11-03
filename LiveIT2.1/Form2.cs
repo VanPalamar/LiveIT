@@ -36,6 +36,7 @@ namespace LiveIT2._1
         Rectangle[] terrainRects;
 
         Size _selectionCursorWidth;
+        Rectangle _screen;
 
         private void Form1_Load( object sender, EventArgs e )
         {
@@ -46,8 +47,9 @@ namespace LiveIT2._1
             _map = new Map( 15000 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
 
-             _boxes = _map.Boxes;
-            rects = new Rectangle[10];
+            _screen = new Rectangle(0, 0, this.Width, this.Height);
+
+            _boxes = _map.Boxes;
             terrainRects = new Rectangle[1000];
             _map.Createmap( 200 );
             g = this.CreateGraphics();
@@ -99,12 +101,13 @@ namespace LiveIT2._1
         public enum Direction { Up, Down, Right, Left };
         public void MoveRectangle( Direction d )
         {
+            int _speed = 30;
             for( int i = 0; i <  _map.Grid.Length; i++ )
             {
-                if( d == Direction.Down ) { _map.Grid[i].Y -= 15; }
-                if( d == Direction.Up ) { _map.Grid[i].Y += 15; }
-                if( d == Direction.Right ) { _map.Grid[i].X -= 15; }
-                if( d == Direction.Left ) { _map.Grid[i].X += 15; }
+                if (d == Direction.Down) { _map.Grid[i].Y -= _speed; }
+                if (d == Direction.Up) { _map.Grid[i].Y += _speed; }
+                if (d == Direction.Right) { _map.Grid[i].X -= _speed; }
+                if (d == Direction.Left) { _map.Grid[i].X += _speed; }
             }
         }
         public Bitmap Draw()
@@ -113,13 +116,10 @@ namespace LiveIT2._1
             _screenGraphic.Clear( Color.FromArgb( 255, Color.Blue ) );
             for( int i = 0; i < _map.Grid.Length; i++ )
             {
-                _screenGraphic.DrawImage( _textureGrass, _map.Grid[i] );
-                //_screenGraphic.DrawString(_map.Grid[i].X.ToString() + "\n" + _map.Grid[i].Y.ToString(), new Font("Arial", 10f), Brushes.Black, new Point(_map.Grid[i].X, _map.Grid[i].Y));
-
-            }
-            _screenGraphic.FillRectangles( Brushes.Gold, rects );
-            
-          
+                    _screenGraphic.DrawImage(_textureGrass, _map.Grid[i]);
+                    //_screenGraphic.DrawString(_map.Grid[i].X.ToString() + "\n" + _map.Grid[i].Y.ToString(), new Font("Arial", 10f), Brushes.Black, new Point(_map.Grid[i].X, _map.Grid[i].Y));
+                
+            }   
             return _background;
         }
 

@@ -20,7 +20,6 @@ namespace LiveIT2._1
         {
             _map = new Rectangle[size];
             _boxes = new Box[size, size];
-
             _size = size;
         }
 
