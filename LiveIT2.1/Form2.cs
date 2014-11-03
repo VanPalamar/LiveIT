@@ -16,42 +16,45 @@ namespace LiveIT2._1
         {
             InitializeComponent();
         }
-        Bitmap creature;
-        Bitmap textureGrass;
+        Bitmap _creature;
+        Bitmap _textureGrass;
         Graphics g;
-        Rectangle area;
+        Rectangle _area;
+        Box[,] _boxes;
+
         bool right;
         bool left;
         bool up;
         bool down;
-        int collectedNumber = 0;
+
         Timer t;
-        Bitmap background;
-        Graphics scG;
+        Bitmap _background;
+        Graphics _screenGraphic;
         Map _map;
 
         Rectangle[] rects;
         Rectangle[] terrainRects;
-         
+
+        Size _selectionCursorWidth;
 
         private void Form1_Load( object sender, EventArgs e )
         {
-            creature = new Bitmap( @"..\..\..\assets\ico.png" );
-            creature.MakeTransparent( Color.White );
-            background = new Bitmap( this.Width, this.Height );
-            area = new Rectangle( this.Width / 2, this.Height / 2, 100, 100 );
-            _map = new Map( 15000 );
-            textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
+            this.DoubleBuffered = true;
 
-            Box[,]_boxes = _map.Boxes;
+            _background = new Bitmap( this.Width, this.Height );
+            _area = new Rectangle( this.Width / 2, this.Height / 2, 100, 100 );
+            _map = new Map( 15000 );
+            _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
+
+             _boxes = _map.Boxes;
             rects = new Rectangle[10];
             terrainRects = new Rectangle[1000];
-            //makerect();
             _map.Createmap( 200 );
-            //MakeTerrain();
-
             g = this.CreateGraphics();
-            scG = Graphics.FromImage( background );
+            _screenGraphic = Graphics.FromImage( _background );
+
+            _selectionCursorWidth = new Size(50, 50);
+            this.MouseWheel += new MouseEventHandler(T_mouseWheel);
 
             t = new Timer();
             t.Interval = 10;
@@ -59,9 +62,31 @@ namespace LiveIT2._1
             t.Start();
         }
 
+        private void T_mouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta >= 1)
+            {
+                if (_selectionCursorWidth.Height <= 1000)
+                {
+                    _selectionCursorWidth.Height += 200;
+                    _selectionCursorWidth.Width += 200;
+                }
+
+            }
+            else
+            {
+                if (_selectionCursorWidth.Height >= 60)
+                {
+                    _selectionCursorWidth.Height -= 200;
+                    _selectionCursorWidth.Width -= 200;
+                }
+            }
+        }
+
 
         private void t_Tick( object sender, EventArgs e )
         {
+            Rectangle _rMouse = new Rectangle(new Point(Cursor.Position.X, Cursor.Position.Y), _selectionCursorWidth);
             if( up ) { MoveRectangle( Direction.Up ); }
             if( left ) { MoveRectangle( Direction.Left ); }
             if( down ) { MoveRectangle( Direction.Down ); }
@@ -85,14 +110,17 @@ namespace LiveIT2._1
         public Bitmap Draw()
         {
 
-            scG.Clear( Color.FromArgb( 255, Color.Blue ) );
-            for( int i = 0; i < terrainRects.Length; i++ )
+            _screenGraphic.Clear( Color.FromArgb( 255, Color.Blue ) );
+            for( int i = 0; i < _map.Grid.Length; i++ )
             {
-                scG.DrawImage( textureGrass, _map.Grid[i] );
+                _screenGraphic.DrawImage( _textureGrass, _map.Grid[i] );
+                //_screenGraphic.DrawString(_map.Grid[i].X.ToString() + "\n" + _map.Grid[i].Y.ToString(), new Font("Arial", 10f), Brushes.Black, new Point(_map.Grid[i].X, _map.Grid[i].Y));
+
             }
-            scG.FillRectangles( Brushes.Gold, rects );
+            _screenGraphic.FillRectangles( Brushes.Gold, rects );
+            
           
-            return background;
+            return _background;
         }
 
         private void Form1_KeyDown( object sender, KeyEventArgs e )
