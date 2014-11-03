@@ -36,17 +36,18 @@ namespace LiveIT2._1
 
         private void Form1_Load( object sender, EventArgs e )
         {
-            creature = new Bitmap( @"C:\Users\Rami\Desktop\LiveIT\ico.png" );
+            creature = new Bitmap( @"..\..\..\assets\ico.png" );
             creature.MakeTransparent( Color.White );
             background = new Bitmap( this.Width, this.Height );
             area = new Rectangle( this.Width / 2, this.Height / 2, 100, 100 );
             _map = new Map( 15000 );
-            textureGrass = new Bitmap( @"C:\Users\Rami\Desktop\LiveIT\grass.png" );
+            textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
 
+            Box[,]_boxes = _map.Boxes;
             rects = new Rectangle[10];
             terrainRects = new Rectangle[1000];
             //makerect();
-            _map.Createmap( 100 );
+            _map.Createmap( 200 );
             //MakeTerrain();
 
             g = this.CreateGraphics();
@@ -56,27 +57,6 @@ namespace LiveIT2._1
             t.Interval = 10;
             t.Tick += new EventHandler( t_Tick );
             t.Start();
-        }
-        //public void makerect()
-        //{
-        //    Random r = new Random();
-        //    for( int i = 0; i < rects.Length; i++ )
-        //    {
-        //        rects[i] = new Rectangle( r.Next( 0, this.Width ), r.Next( 0, this.Height ), 10, 10 );
-        //    }
-
-        //}
-
-        public void MakeTerrain()
-        {
-            int rectpos = 0;
-            for( int x = 0; x < this.Width; x += 60 )
-            {
-                for( int y = 0; y < this.Width; y += 60 )
-                {
-                    terrainRects[rectpos++] = new Rectangle( x, y, 60, 60 );
-                }
-            }
         }
 
 
@@ -94,13 +74,6 @@ namespace LiveIT2._1
         public enum Direction { Up, Down, Right, Left };
         public void MoveRectangle( Direction d )
         {
-            //for( int i = 0; i < rects.Length; i++ )
-            //{
-            //    if( d == Direction.Down ) { rects[i].Y -= 15; }
-            //    if( d == Direction.Up ) { rects[i].Y += 15; }
-            //    if( d == Direction.Right ) { rects[i].X -= 15; }
-            //    if( d == Direction.Left ) { rects[i].X += 15; }
-            //}
             for( int i = 0; i <  _map.Grid.Length; i++ )
             {
                 if( d == Direction.Down ) { _map.Grid[i].Y -= 15; }
