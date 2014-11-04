@@ -25,7 +25,6 @@ namespace LiveIT2._1
         bool left;
         bool up;
         bool down;
-        bool  _clicked = false;
         bool _changeTexture = false;
 
         string _selectedTexture;
@@ -57,7 +56,7 @@ namespace LiveIT2._1
             _textureSnow = new Bitmap( @"..\..\..\assets\Snow.jpg" );
             _textureDesert = new Bitmap( @"..\..\..\assets\Desert.jpg" );
 
-            _boxWidth = 200;
+            _boxWidth = 100;
             _boxes = _map.Boxes;
 
             _map.Createmap( _boxWidth );
