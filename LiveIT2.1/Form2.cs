@@ -16,47 +16,71 @@ namespace LiveIT2._1
         {
             InitializeComponent();
         }
-        Bitmap _creature;
-        Bitmap _textureGrass;
         Graphics g;
-        Rectangle _area;
-        Box[,] _boxes;
+        Graphics _screenGraphic;
+
+        Box[] _boxes;
 
         bool right;
         bool left;
         bool up;
         bool down;
+        bool  _clicked = false;
+        bool _changeTexture = false;
+
+        string _selectedTexture;
 
         Timer t;
+
         Bitmap _background;
-        Graphics _screenGraphic;
+        Bitmap _textureGrass, _textureWater, _textureDirt, _textureSnow, _textureDesert;
+
         Map _map;
-
-        Rectangle[] rects;
-        Rectangle[] terrainRects;
-
+  
         Size _selectionCursorWidth;
         Rectangle _screen;
+        Rectangle _mouseRect;
+
+        Dictionary<string, Bitmap> _texturesDictionnary;
+
+        int _boxWidth;
 
         private void Form1_Load( object sender, EventArgs e )
         {
             this.DoubleBuffered = true;
-
+            _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _area = new Rectangle( this.Width / 2, this.Height / 2, 100, 100 );
-            _map = new Map( 15000 );
+            _map = new Map( 1500 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
+            _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
+            _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
+            _textureSnow = new Bitmap( @"..\..\..\assets\Snow.jpg" );
+            _textureDesert = new Bitmap( @"..\..\..\assets\Desert.jpg" );
 
-            _screen = new Rectangle(0, 0, this.Width, this.Height);
-
+            _boxWidth = 200;
             _boxes = _map.Boxes;
-            terrainRects = new Rectangle[1000];
-            _map.Createmap( 200 );
+
+            _map.Createmap( _boxWidth );
+
+            _screen = new Rectangle( 0, 0, this.Width, this.Height );
+            _mouseRect = new Rectangle( 0, 0, 100, 100 );
+
+
             g = this.CreateGraphics();
             _screenGraphic = Graphics.FromImage( _background );
 
             _selectionCursorWidth = new Size(50, 50);
             this.MouseWheel += new MouseEventHandler(T_mouseWheel);
+
+            _texturesDictionnary = new Dictionary<string, Bitmap>()
+	            {
+	                {"grass", _textureGrass},
+	                {"water", _textureWater},
+	                {"dirt", _textureDirt},
+	                {"snow", _textureSnow},
+                    {"desert", _textureDesert}         
+	            };
+
 
             t = new Timer();
             t.Interval = 10;
@@ -88,38 +112,54 @@ namespace LiveIT2._1
 
         private void t_Tick( object sender, EventArgs e )
         {
-            Rectangle _rMouse = new Rectangle(new Point(Cursor.Position.X, Cursor.Position.Y), _selectionCursorWidth);
             if( up ) { MoveRectangle( Direction.Up ); }
             if( left ) { MoveRectangle( Direction.Left ); }
             if( down ) { MoveRectangle( Direction.Down ); }
             if( right ) { MoveRectangle( Direction.Right ); }
-            g.DrawImage( Draw(), new Point( 0, 0 ) );
             
-
+            g.DrawImage( Draw(), new Point( 0, 0 ) );
+                      
         }
 
         public enum Direction { Up, Down, Right, Left };
         public void MoveRectangle( Direction d )
         {
             int _speed = 30;
-            for( int i = 0; i <  _map.Grid.Length; i++ )
+            for( int i = 0; i < _boxes.Length; i++ )
             {
-                if (d == Direction.Down) { _map.Grid[i].Y -= _speed; }
-                if (d == Direction.Up) { _map.Grid[i].Y += _speed; }
-                if (d == Direction.Right) { _map.Grid[i].X -= _speed; }
-                if (d == Direction.Left) { _map.Grid[i].X += _speed; }
+                if( d == Direction.Down ) { _boxes[i].Y -= _speed;  }
+                if( d == Direction.Up ) { _boxes[i].Y += _speed;  }
+                if( d == Direction.Right ) { _boxes[i].X -= _speed;  }
+                if( d == Direction.Left ) { _boxes[i].X += _speed; }
             }
         }
         public Bitmap Draw()
         {
-
-            _screenGraphic.Clear( Color.FromArgb( 255, Color.Blue ) );
-            for( int i = 0; i < _map.Grid.Length; i++ )
+            Rectangle _rMouse = new Rectangle( new Point( Cursor.Position.X, Cursor.Position.Y ), _selectionCursorWidth );
+            _screenGraphic.Clear( Color.FromArgb( 255, Color.Black ) );
+            
+            for( int i = 0; i < _boxes.Length; i++ )
             {
-                    _screenGraphic.DrawImage(_textureGrass, _map.Grid[i]);
-                    //_screenGraphic.DrawString(_map.Grid[i].X.ToString() + "\n" + _map.Grid[i].Y.ToString(), new Font("Arial", 10f), Brushes.Black, new Point(_map.Grid[i].X, _map.Grid[i].Y));
                 
-            }   
+                if( _boxes[i].Rectangle.IntersectsWith( _screen ) )
+                {
+                    if( _boxes[i].Rectangle.IntersectsWith( _rMouse ) && _boxes[i].Rectangle.IntersectsWith( _screen ) )
+                    {
+                        _screenGraphic.DrawRectangle( new Pen( Brushes.Red, 10f ), new Rectangle(new Point(_boxes[i].Rectangle.X,_boxes[i].Rectangle.Y ), new Size(_boxes[i].Rectangle.Width,_boxes[i].Rectangle.Width)  ));
+                        
+                        if( _changeTexture )
+                        {
+                            //G.FillRectangle( Brushes.DimGray, _map.Grid[i] );
+                            _boxes[i].Texture = _selectedTexture;
+                        }
+                    }
+                    
+                    _screenGraphic.DrawImage( _texturesDictionnary[_boxes[i].Texture], _boxes[i].Rectangle );
+                }
+                                    
+            }
+
+            _changeTexture = false;
             return _background;
         }
 
@@ -137,6 +177,36 @@ namespace LiveIT2._1
             if( e.KeyCode == Keys.Q ) { left = false; }
             if( e.KeyCode == Keys.S ) { down = false; }
             if( e.KeyCode == Keys.D ) { right = false; }
+        }
+
+        private void Form1_MouseClick( object sender, MouseEventArgs e )
+        {
+            _changeTexture = true;
+        }
+
+        private void _waterButton_Click( object sender, EventArgs e )
+        {
+            _selectedTexture = "water";
+        }
+
+        private void _dirtButton_Click( object sender, EventArgs e )
+        {
+            _selectedTexture = "dirt";
+        }
+
+        private void _snowButton_Click( object sender, EventArgs e )
+        {
+            _selectedTexture = "snow";
+        }
+
+        private void _desertButton_Click( object sender, EventArgs e )
+        {
+            _selectedTexture = "desert";
+        }
+
+        private void _grassButton_Click( object sender, EventArgs e )
+        {
+            _selectedTexture = "grass";
         }
 
     }

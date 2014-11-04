@@ -12,6 +12,9 @@ namespace LiveIT2._1
 
         Rectangle[] _map;
         Box[,] _boxes;
+        Box[] _boxArray;
+
+        
 
         int _size;
         int _boxwidth;
@@ -19,6 +22,7 @@ namespace LiveIT2._1
         public Map( int size )
         {
             _map = new Rectangle[size];
+            _boxArray = new Box[size];
             _boxes = new Box[size, size];
             _size = size;
         }
@@ -28,9 +32,9 @@ namespace LiveIT2._1
             get { return _map; }
         }
 
-        public Box[,] Boxes
+        public Box[] Boxes
         {
-            get { return _boxes; }
+            get { return _boxArray; }
         }
 
         public int BoxWidth
@@ -46,14 +50,17 @@ namespace LiveIT2._1
         {
             int _pos = 0;
             _boxwidth = boxWidth;
-            for( int i = 0; i < _size; i += boxWidth )
+            for( int i = 0; i < _size * boxWidth; i += boxWidth )
             {
-                for( int j = 0; j < _size; j += boxWidth )
+                for( int j = 0; j < _size ; j += boxWidth )
                 {
                     if( _pos != _size )
                     {
-                        _map[_pos++] = new Rectangle( i, j, boxWidth, boxWidth );
-                        _boxes[i, j] = new Box( i, j, boxWidth );
+                        //_map[_pos++] = new Rectangle( i, j, boxWidth, boxWidth );
+                        //_boxes[i, j] = new Box( i, j, boxWidth );
+                   
+                        _boxArray[_pos++] = new Box( i, j, boxWidth );
+                        
                     }
 
                 }
