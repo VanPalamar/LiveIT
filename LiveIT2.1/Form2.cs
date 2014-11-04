@@ -65,7 +65,6 @@ namespace LiveIT2._1
             _screen = new Rectangle( 0, 0, this.Width, this.Height );
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
 
-
             g = this.CreateGraphics();
             _screenGraphic = Graphics.FromImage( _background );
 
@@ -92,19 +91,19 @@ namespace LiveIT2._1
         {
             if (e.Delta >= 1)
             {
-                if (_selectionCursorWidth.Height <= 1000)
+                if( _selectionCursorWidth.Height <= _boxWidth * 5)
                 {
-                    _selectionCursorWidth.Height += 200;
-                    _selectionCursorWidth.Width += 200;
+                    _selectionCursorWidth.Height += _boxWidth;
+                    _selectionCursorWidth.Width += _boxWidth;
                 }
 
             }
             else
             {
-                if (_selectionCursorWidth.Height >= 60)
+                if( _selectionCursorWidth.Height >= _boxWidth / 2)
                 {
-                    _selectionCursorWidth.Height -= 200;
-                    _selectionCursorWidth.Width -= 200;
+                    _selectionCursorWidth.Height -= _boxWidth;
+                    _selectionCursorWidth.Width -= _boxWidth;
                 }
             }
         }
@@ -124,7 +123,7 @@ namespace LiveIT2._1
         public enum Direction { Up, Down, Right, Left };
         public void MoveRectangle( Direction d )
         {
-            int _speed = 30;
+            int _speed = 40;
             for( int i = 0; i < _boxes.Length; i++ )
             {
                 if( d == Direction.Down ) { _boxes[i].Y -= _speed;  }
@@ -149,7 +148,7 @@ namespace LiveIT2._1
                         
                         if( _changeTexture )
                         {
-                            //G.FillRectangle( Brushes.DimGray, _map.Grid[i] );
+                            _screenGraphic.FillRectangle( Brushes.DimGray, _boxes[i].Rectangle );
                             _boxes[i].Texture = _selectedTexture;
                         }
                     }

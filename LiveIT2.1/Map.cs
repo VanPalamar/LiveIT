@@ -11,7 +11,6 @@ namespace LiveIT2._1
     {
 
         Rectangle[] _map;
-        Box[,] _boxes;
         Box[] _boxArray;
 
         
@@ -23,7 +22,6 @@ namespace LiveIT2._1
         {
             _map = new Rectangle[size];
             _boxArray = new Box[size];
-            _boxes = new Box[size, size];
             _size = size;
         }
 
@@ -66,11 +64,6 @@ namespace LiveIT2._1
                 }
 
             }
-        }
-
-        public void DrawMap( Graphics graphic )
-        {
-            graphic.DrawRectangles( Pens.Red, _map );
         }
     }
 }
