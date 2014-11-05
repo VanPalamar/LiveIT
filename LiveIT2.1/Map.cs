@@ -11,56 +11,48 @@ namespace LiveIT2._1
     {
 
         Rectangle[] _map;
-        Box[] _boxArray;
+        readonly Box[] _boxes;
+
+
+         readonly int _meter;
+         readonly int _sizeInMeter;
+         readonly int _column;
+         int _boxWidth;
+        public int boxWidth
+        {
+            get { return _boxWidth; }
+        }
+        public Map( int size, int meter, int boxWidth )
+        {
+            
+            _boxes = new Box[size*size];
+            _sizeInMeter = meter;
+            _column = size;
+            _boxWidth = boxWidth;
+        }
 
         
 
-        int _size;
-        int _boxwidth;
-
-        public Map( int size )
-        {
-            _map = new Rectangle[size];
-            _boxArray = new Box[size];
-            _size = size;
-        }
-
-        public Rectangle[] Grid
-        {
-            get { return _map; }
-        }
-
         public Box[] Boxes
         {
-            get { return _boxArray; }
+            get { return _boxes; }
         }
 
-        public int BoxWidth
-        {
-            get { return _boxwidth; }
-            set { _boxwidth = value; }
-        }
+       
         public int Size
         {
-            get { return _size; }
+            get { return _sizeInMeter; }
         }
-        public void Createmap( int boxWidth )
+        public void Createmap(  )
         {
-            int _pos = 0;
-            _boxwidth = boxWidth;
-            for( int i = 0; i < _size * boxWidth; i += boxWidth )
-            {
-                for( int j = 0; j < _size ; j += boxWidth )
-                {
-                    if( _pos != _size )
-                    {
-                        //_map[_pos++] = new Rectangle( i, j, boxWidth, boxWidth );
-                        //_boxes[i, j] = new Box( i, j, boxWidth );
-                   
-                        _boxArray[_pos++] = new Box( i, j, boxWidth );
-                        
-                    }
+            int _count = 0;
 
+            for( int i = 0; i < _column; i++ )
+            {
+                for( int j = 0; j < _column; j++ )
+                {
+
+                    _boxes[_count++] = new Box( i, j, this);
                 }
 
             }

@@ -15,15 +15,18 @@ namespace LiveIT2._1
         int _width;
         Rectangle _rectangle;
         string _texture;
+         Map _map;
 
+        
 
-        public Box( int x, int y, int width )
+        public Box( int x, int y, Map map )
         {
+            _map = map;
             _x = x;
             _y = y;
-            _width = width;
+            _width = _map.boxWidth;
             _texture = "grass";
-            _rectangle = new Rectangle( x, y, width, width );
+            //_rectangle = new Rectangle( x, y, width, width );
         }
 
         public void SetTexture( string textureName )
@@ -46,21 +49,17 @@ namespace LiveIT2._1
         public int X
         {
             get { return _x; }
-            set { _x = value;
-            _rectangle.X = value;
-        }
+          
         }
         public int Y
         {
             get { return _y; }
-            set { _y = value;
-            _rectangle.Y = value;
-            }
+           
         }
-        public int Width
+        public Rectangle[] Area
         {
-            get { return _width; }
-            set { _width = value; }
+            get {return new Rectangle[] ; }
         }
+        
     }
 }
