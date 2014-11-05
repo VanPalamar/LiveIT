@@ -50,6 +50,8 @@ namespace LiveIT2._1
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
             _map = new Map( 1500, 100 );
+            Rectangle r = new Rectangle( 0, 0, 250000, 250000 );
+            List<Box> _boxList = (List<Box>)_map.GetOverlappedBoxes( r );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
@@ -57,9 +59,6 @@ namespace LiveIT2._1
             _textureDesert = new Bitmap( @"..\..\..\assets\Desert.jpg" );
 
             _boxWidth = 100;
-            _boxes = _map.Boxes;
-
-            _map.Createmap();
 
             _screen = new Rectangle( 0, 0, this.Width, this.Height );
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
@@ -136,26 +135,26 @@ namespace LiveIT2._1
             Rectangle _rMouse = new Rectangle( new Point( Cursor.Position.X, Cursor.Position.Y ), _selectionCursorWidth );
             _screenGraphic.Clear( Color.FromArgb( 255, Color.Black ) );
             
-            for( int i = 0; i < _boxes.Length; i++ )
-            {
+            //for( int i = 0; i < _boxes.Length; i++ )
+            //{
                 
-                if( _boxes[i].Rectangle.IntersectsWith( _screen ) )
-                {
-                    if( _boxes[i].Rectangle.IntersectsWith( _rMouse ) && _boxes[i].Rectangle.IntersectsWith( _screen ) )
-                    {
-                        _screenGraphic.DrawRectangle( new Pen( Brushes.Red, 10f ), new Rectangle(new Point(_boxes[i].Rectangle.X,_boxes[i].Rectangle.Y ), new Size(_boxes[i].Rectangle.Width,_boxes[i].Rectangle.Width)  ));
+            //    if( _boxes[i].Rectangle.IntersectsWith( _screen ) )
+            //    {
+            //        if( _boxes[i].Rectangle.IntersectsWith( _rMouse ) && _boxes[i].Rectangle.IntersectsWith( _screen ) )
+            //        {
+            //            _screenGraphic.DrawRectangle( new Pen( Brushes.Red, 10f ), new Rectangle(new Point(_boxes[i].Rectangle.X,_boxes[i].Rectangle.Y ), new Size(_boxes[i].Rectangle.Width,_boxes[i].Rectangle.Width)  ));
                         
-                        if( _changeTexture )
-                        {
-                            _screenGraphic.FillRectangle( Brushes.DimGray, _boxes[i].Rectangle );
-                            _boxes[i].Texture = _selectedTexture;
-                        }
-                    }
+            //            if( _changeTexture )
+            //            {
+            //                _screenGraphic.FillRectangle( Brushes.DimGray, _boxes[i].Rectangle );
+            //                _boxes[i].Texture = _selectedTexture;
+            //            }
+            //        }
                     
-                    _screenGraphic.DrawImage( _texturesDictionnary[_boxes[i].Texture], _boxes[i].Rectangle );
-                }
+            //        _screenGraphic.DrawImage( _texturesDaictionnary[_boxes[i].Texture], _boxes[i].Rectangle );
+            //    }
                                     
-            }
+            //}
 
             _changeTexture = false;
             return _background;

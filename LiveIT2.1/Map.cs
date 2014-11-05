@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LiveIT2._1
 {
-    class Map
+    public class Map
     {
         readonly Box[] _boxes;
         readonly int _mapSize;
@@ -24,7 +24,6 @@ namespace LiveIT2._1
             {
                 for( int j = 0; j < _mapSize; j++ )
                 {
-
                     _boxes[count++] = new Box( i, j, this );
                 }
             }
@@ -66,7 +65,15 @@ namespace LiveIT2._1
 
         public IEnumerable<Box> GetOverlappedBoxes(Rectangle r)
         {
-            return new Box[0];
+            List<Box> boxList = new List<Box>();
+            for( int i = 0; i < _boxes.Length; i++ )
+            {
+                if( _boxes[i].Area.IntersectsWith( r ) )
+                {
+                    boxList.Add( _boxes[i] );
+                }
+            }
+            return boxList;
         }
     }
 }

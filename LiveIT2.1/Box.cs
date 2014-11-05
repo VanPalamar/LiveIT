@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace LiveIT2._1
 {
-    class Box
+    public class Box
     {
         readonly Map _map;
         int _line;
         int _column;
         BoxGround _ground;
-
-        
 
         public Box( int line, int column, Map map )
         {
@@ -44,6 +42,26 @@ namespace LiveIT2._1
             get { return _ground; }
             set { _ground = value; }
         }
+        public Box Top
+        {
+            get { return _map[_line, _column - 1]; }
+        }
+
+        public Box Bottom
+        {
+            get { return _map[_line, _column + 1]; }
+        }
+
+        public Box Left
+        {
+            get { return _map[_line - 1, _column]; }
+        }
+
+        public Box Right
+        {
+            get { return _map[_line + 1, _column]; }
+        }
+
 
         public int Line
         {
