@@ -24,7 +24,6 @@ namespace LiveIT2._1
             _width = width;
             _texture = "grass";
             _rectangle = new Rectangle( x, y, width, width );
-
         }
 
         public void SetTexture( string textureName )
