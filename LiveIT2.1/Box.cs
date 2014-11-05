@@ -9,56 +9,51 @@ namespace LiveIT2._1
 {
     class Box
     {
-
-        int _x;
-        int _y;
-        int _width;
-        Rectangle _rectangle;
-        string _texture;
-         Map _map;
+        readonly Map _map;
+        int _line;
+        int _column;
+        BoxGround _ground;
 
         
 
-        public Box( int x, int y, Map map )
+        public Box( int line, int column, Map map )
         {
             _map = map;
-            _x = x;
-            _y = y;
-            _width = _map.boxWidth;
-            _texture = "grass";
-            //_rectangle = new Rectangle( x, y, width, width );
+            _line = line;
+            _column = column;
+            _ground = BoxGround.Grass;
         }
 
-        public void SetTexture( string textureName )
+        public Point AreaTopLeft
         {
-            _texture = textureName;
+            get { return new Point(_line*_map.BoxSize, _column*_map.BoxSize); }
         }
 
-        public Rectangle Rectangle
+        public Point BottomRight
         {
-            get { return _rectangle; }
-            set { _rectangle = value; }
+            get { return AreaTopLeft + new Size( _map.BoxSize, _map.BoxSize ); }
         }
 
-        public string Texture
+        public Rectangle Area
         {
-            get { return _texture; }
-            set { _texture = value; }
+            get { return new Rectangle( AreaTopLeft, new Size( _map.BoxSize, _map.BoxSize )); }
         }
 
-        public int X
+        public BoxGround Ground
         {
-            get { return _x; }
+            get { return _ground; }
+            set { _ground = value; }
+        }
+
+        public int Line
+        {
+            get { return _line; }
           
         }
-        public int Y
+        public int Column
         {
-            get { return _y; }
+            get { return _column; }
            
-        }
-        public Rectangle[] Area
-        {
-            get {return new Rectangle[] ; }
         }
         
     }

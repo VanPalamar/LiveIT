@@ -49,7 +49,7 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 1500 );
+            _map = new Map( 1500, 100 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
@@ -59,7 +59,7 @@ namespace LiveIT2._1
             _boxWidth = 100;
             _boxes = _map.Boxes;
 
-            _map.Createmap( _boxWidth );
+            _map.Createmap();
 
             _screen = new Rectangle( 0, 0, this.Width, this.Height );
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
@@ -110,27 +110,27 @@ namespace LiveIT2._1
 
         private void t_Tick( object sender, EventArgs e )
         {
-            if( up ) { MoveRectangle( Direction.Up ); }
-            if( left ) { MoveRectangle( Direction.Left ); }
-            if( down ) { MoveRectangle( Direction.Down ); }
-            if( right ) { MoveRectangle( Direction.Right ); }
+            //if( up ) { MoveRectangle( Direction.Up ); }
+            //if( left ) { MoveRectangle( Direction.Left ); }
+            //if( down ) { MoveRectangle( Direction.Down ); }
+            //if( right ) { MoveRectangle( Direction.Right ); }
             
             g.DrawImage( Draw(), new Point( 0, 0 ) );
                       
         }
 
         public enum Direction { Up, Down, Right, Left };
-        public void MoveRectangle( Direction d )
-        {
-            int _speed = 40;
-            for( int i = 0; i < _boxes.Length; i++ )
-            {
-                if( d == Direction.Down ) { _boxes[i].Y -= _speed;  }
-                if( d == Direction.Up ) { _boxes[i].Y += _speed;  }
-                if( d == Direction.Right ) { _boxes[i].X -= _speed;  }
-                if( d == Direction.Left ) { _boxes[i].X += _speed; }
-            }
-        }
+        //public void MoveRectangle( Direction d )
+        //{
+        //    int _speed = 40;
+        //    for( int i = 0; i < _boxes.Length; i++ )
+        //    {
+        //        if( d == Direction.Down ) { _boxes[i].Y -= _speed;  }
+        //        if( d == Direction.Up ) { _boxes[i].Y += _speed;  }
+        //        if( d == Direction.Right ) { _boxes[i].X -= _speed;  }
+        //        if( d == Direction.Left ) { _boxes[i].X += _speed; }
+        //    }
+        //}
         public Bitmap Draw()
         {
             Rectangle _rMouse = new Rectangle( new Point( Cursor.Position.X, Cursor.Position.Y ), _selectionCursorWidth );

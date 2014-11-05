@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Box.cs" />
+    <Compile Include="BoxGround.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>

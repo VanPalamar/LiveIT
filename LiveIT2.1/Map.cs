@@ -9,53 +9,64 @@ namespace LiveIT2._1
 {
     class Map
     {
-
-        Rectangle[] _map;
         readonly Box[] _boxes;
+        readonly int _mapSize;
+        // Box size in centimeter.
+        readonly int _boxSize;
 
-
-         readonly int _meter;
-         readonly int _sizeInMeter;
-         readonly int _column;
-         int _boxWidth;
-        public int boxWidth
+        public Map( int mapSize, int boxSizeInMeter )
         {
-            get { return _boxWidth; }
-        }
-        public Map( int size, int meter, int boxWidth )
-        {
-            
-            _boxes = new Box[size*size];
-            _sizeInMeter = meter;
-            _column = size;
-            _boxWidth = boxWidth;
-        }
-
-        
-
-        public Box[] Boxes
-        {
-            get { return _boxes; }
-        }
-
-       
-        public int Size
-        {
-            get { return _sizeInMeter; }
-        }
-        public void Createmap(  )
-        {
-            int _count = 0;
-
-            for( int i = 0; i < _column; i++ )
+            _mapSize = mapSize;
+            _boxes = new Box[mapSize * mapSize];
+            _boxSize = boxSizeInMeter * 100;
+            int count = 0;
+            for( int i = 0; i < _mapSize; i++ )
             {
-                for( int j = 0; j < _column; j++ )
+                for( int j = 0; j < _mapSize; j++ )
                 {
 
-                    _boxes[_count++] = new Box( i, j, this);
+                    _boxes[count++] = new Box( i, j, this );
                 }
-
             }
+        }
+
+
+        /// <summary>
+        /// Gets the box size in centimeter.
+        /// </summary>
+        public int BoxSize
+        {
+            get { return _boxSize; }
+        }
+
+        /// <summary>
+        /// Gets the map size (the number of lines and number of columns).
+        /// </summary>
+        public int MapSize
+        {
+            get { return _mapSize; }
+        }
+
+        /// <summary>
+        /// Gets the box at (line,column). line and column must be in [0,<see cref="MapSize"/>[
+        /// otherwise null is returned.
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="column"></param>
+        /// <returns>The box or null.</returns>
+        public Box this[ int line, int column ]
+        {
+            get
+            {
+                if (line < 0 || line >= _mapSize
+                    || column < 0 || column > _mapSize) return null;
+                return _boxes[line*_mapSize + column];
+            }
+        }
+
+        public IEnumerable<Box> GetOverlappedBoxes(Rectangle r)
+        {
+            return new Box[0];
         }
     }
 }
