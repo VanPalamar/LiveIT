@@ -41,6 +41,7 @@ namespace LiveIT2._1
         Rectangle _mouseRect;
 
         Dictionary<string, Bitmap> _texturesDictionnary;
+        List<Box> _boxList;
 
         int _boxWidth;
 
@@ -49,9 +50,7 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 1500, 100 );
-            Rectangle r = new Rectangle( 0, 0, 250000, 250000 );
-            List<Box> _boxList = (List<Box>)_map.GetOverlappedBoxes( r );
+            _map = new Map( 1500, 1 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
@@ -68,6 +67,7 @@ namespace LiveIT2._1
 
             _selectionCursorWidth = new Size(50, 50);
             this.MouseWheel += new MouseEventHandler(T_mouseWheel);
+
 
             _texturesDictionnary = new Dictionary<string, Bitmap>()
 	            {
@@ -134,6 +134,14 @@ namespace LiveIT2._1
         {
             Rectangle _rMouse = new Rectangle( new Point( Cursor.Position.X, Cursor.Position.Y ), _selectionCursorWidth );
             _screenGraphic.Clear( Color.FromArgb( 255, Color.Black ) );
+            _boxList = _map.GetOverlappedBoxes(_screen);
+            foreach( Box boxs in _boxList )
+            {
+                //_screenGraphic.FillRectangle(Brushes.Red, boxs.Area);
+                _screenGraphic.DrawImage( _textureGrass, boxs.Area );
+                //_screenGraphic.DrawString( boxs.Area.X.ToString() + "\n" + boxs.Area.Y.ToString(), new Font( "Arial", 10f ), Brushes.Black, boxs.Area.X, boxs.Area.Y );
+            }
+            
             
             //for( int i = 0; i < _boxes.Length; i++ )
             //{

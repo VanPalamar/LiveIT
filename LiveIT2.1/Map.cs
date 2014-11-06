@@ -63,7 +63,7 @@ namespace LiveIT2._1
             }
         }
 
-        public IEnumerable<Box> GetOverlappedBoxes(Rectangle r)
+        public List<Box> GetOverlappedBoxes(Rectangle r)
         {
             List<Box> boxList = new List<Box>();
             for( int i = 0; i < _boxes.Length; i++ )
