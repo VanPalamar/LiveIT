@@ -22,19 +22,14 @@ namespace LiveIT2._1
             _ground = BoxGround.Grass;
         }
 
-        public Point AreaTopLeft
+        public Point Location
         {
             get { return new Point(_line*_map.BoxSize, _column*_map.BoxSize); }
         }
 
-        public Point BottomRight
-        {
-            get { return AreaTopLeft + new Size( _map.BoxSize, _map.BoxSize ); }
-        }
-
         public Rectangle Area
         {
-            get { return new Rectangle( AreaTopLeft, new Size( _map.BoxSize, _map.BoxSize )); }
+            get { return new Rectangle( Location, new Size( _map.BoxSize, _map.BoxSize )); }
         }
 
         public BoxGround Ground

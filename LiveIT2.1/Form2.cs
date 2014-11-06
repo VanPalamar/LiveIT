@@ -50,7 +50,7 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 700, 1 );
+            _map = new Map( 700, 3 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
@@ -121,7 +121,7 @@ namespace LiveIT2._1
         public enum Direction { Up, Down, Right, Left };
         public void MoveRectangle( Direction d )
         {
-            int speed = 100;
+            int speed = 45;
             if( d == Direction.Down ) { _viewPort.MoveDown( speed ); }
             if( d == Direction.Up ) { _viewPort.MoveUp( speed ); }
             if( d == Direction.Right ) { _viewPort.MoveRight( speed ); }

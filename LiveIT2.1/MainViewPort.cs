@@ -25,6 +25,7 @@ namespace LiveIT2._1
             {
                 g.DrawImage( b, boxs.Area );
                 g.DrawString( boxs.Area.X.ToString() + "\n" + boxs.Area.Y.ToString(), new Font( "Arial", 10f ), Brushes.Black, boxs.Area );
+                g.DrawRectangle( Pens.White, _viewPort );
             }
         }
 
