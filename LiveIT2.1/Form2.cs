@@ -19,8 +19,6 @@ namespace LiveIT2._1
         Graphics g;
         Graphics _screenGraphic;
 
-        Box[] _boxes;
-
         bool right;
         bool left;
         bool up;
@@ -50,14 +48,14 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 15, 2 );
+            _map = new Map( 50, 2 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
             _textureSnow = new Bitmap( @"..\..\..\assets\Snow.jpg" );
             _textureDesert = new Bitmap( @"..\..\..\assets\Desert.jpg" );
 
-            _boxWidth = 100;
+            _boxWidth = _map.BoxSize;
 
              _viewPort = new MainViewPort( _map, this.Width, this.Height );
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
@@ -65,7 +63,7 @@ namespace LiveIT2._1
             g = this.CreateGraphics();
             _screenGraphic = Graphics.FromImage( _background );
 
-            _selectionCursorWidth = new Size(50, 50);
+            _selectionCursorWidth = new Size(_boxWidth, _boxWidth);
             this.MouseWheel += new MouseEventHandler(T_mouseWheel);
 
 
@@ -77,7 +75,6 @@ namespace LiveIT2._1
 	                {"snow", _textureSnow},
                     {"desert", _textureDesert}         
 	            };
-
 
             t = new Timer();
             t.Interval = 10;
@@ -133,28 +130,7 @@ namespace LiveIT2._1
             _screenGraphic.Clear( Color.FromArgb( 255, Color.Black ) );
 
             _viewPort.Draw( _screenGraphic, _textureGrass );
-            
-            
-            //for( int i = 0; i < _boxes.Length; i++ )
-            //{
-                
-            //    if( _boxes[i].Rectangle.IntersectsWith( _screen ) )
-            //    {
-            //        if( _boxes[i].Rectangle.IntersectsWith( _rMouse ) && _boxes[i].Rectangle.IntersectsWith( _screen ) )
-            //        {
-            //            _screenGraphic.DrawRectangle( new Pen( Brushes.Red, 10f ), new Rectangle(new Point(_boxes[i].Rectangle.X,_boxes[i].Rectangle.Y ), new Size(_boxes[i].Rectangle.Width,_boxes[i].Rectangle.Width)  ));
-                        
-            //            if( _changeTexture )
-            //            {
-            //                _screenGraphic.FillRectangle( Brushes.DimGray, _boxes[i].Rectangle );
-            //                _boxes[i].Texture = _selectedTexture;
-            //            }
-            //        }
-                    
-            //        _screenGraphic.DrawImage( _texturesDaictionnary[_boxes[i].Texture], _boxes[i].Rectangle );
-            //    }
-                                    
-            //}
+            _viewPort.DrawMouseSelector(_screenGraphic, _rMouse);
 
             _changeTexture = false;
             return _background;
@@ -208,12 +184,12 @@ namespace LiveIT2._1
 
         private void _buttonZoomPlus_Click( object sender, EventArgs e )
         {
-            _viewPort.ZoomIn( 500 );
+
         }
 
         private void _buttonZoomMinus_Click( object sender, EventArgs e )
         {
-            _viewPort.ZoomOut( 500 );
+
         }
 
     }
