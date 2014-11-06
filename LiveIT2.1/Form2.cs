@@ -50,7 +50,7 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 700, 3 );
+            _map = new Map( 15, 2 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
@@ -59,7 +59,7 @@ namespace LiveIT2._1
 
             _boxWidth = 100;
 
-             _viewPort = new MainViewPort( _map, 500, 500 );
+             _viewPort = new MainViewPort( _map, this.Width, this.Height );
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
 
             g = this.CreateGraphics();
