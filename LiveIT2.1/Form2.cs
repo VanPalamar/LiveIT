@@ -37,11 +37,11 @@ namespace LiveIT2._1
         Map _map;
   
         Size _selectionCursorWidth;
-        Rectangle _screen;
         Rectangle _mouseRect;
 
         Dictionary<string, Bitmap> _texturesDictionnary;
-        List<Box> _boxList;
+
+        MainViewPort _viewPort;
 
         int _boxWidth;
 
@@ -50,7 +50,7 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = "grass";
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 150, 2 );
+            _map = new Map( 700, 1 );
             _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
             _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
             _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
@@ -59,7 +59,7 @@ namespace LiveIT2._1
 
             _boxWidth = 100;
 
-            _screen = new Rectangle( 0, 0, this.Height, this.Width );
+             _viewPort = new MainViewPort( _map, 500, 500 );
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
 
             g = this.CreateGraphics();
@@ -121,23 +121,18 @@ namespace LiveIT2._1
         public enum Direction { Up, Down, Right, Left };
         public void MoveRectangle( Direction d )
         {
-            int _speed = 40;
-                if( d == Direction.Down ) { _screen.Y -= _speed; }
-                if( d == Direction.Up ) { _screen.Y += _speed; }
-                if( d == Direction.Right ) { _screen.X -= _speed; }
-                if( d == Direction.Left ) { _screen.X += _speed; }
+            int speed = 100;
+            if( d == Direction.Down ) { _viewPort.MoveDown( speed ); }
+            if( d == Direction.Up ) { _viewPort.MoveUp( speed ); }
+            if( d == Direction.Right ) { _viewPort.MoveRight( speed ); }
+            if( d == Direction.Left ) { _viewPort.MoveLeft( speed ); }
         }
         public Bitmap Draw()
         {
             Rectangle _rMouse = new Rectangle( new Point( Cursor.Position.X, Cursor.Position.Y ), _selectionCursorWidth );
             _screenGraphic.Clear( Color.FromArgb( 255, Color.Black ) );
-            _boxList = _map.GetOverlappedBoxes(_screen);
-            foreach( Box boxs in _boxList )
-            {
-                //_screenGraphic.FillRectangle(Brushes.Red, boxs.Area);
-                _screenGraphic.DrawImage( _textureGrass, boxs.Area );
-                _screenGraphic.DrawString( boxs.Area.X.ToString() + "\n" + boxs.Area.Y.ToString(), new Font( "Arial", 10f ), Brushes.Black, boxs.Area.X, boxs.Area.Y );
-            }
+
+            _viewPort.Draw( _screenGraphic, _textureGrass );
             
             
             //for( int i = 0; i < _boxes.Length; i++ )
@@ -209,6 +204,16 @@ namespace LiveIT2._1
         private void _grassButton_Click( object sender, EventArgs e )
         {
             _selectedTexture = "grass";
+        }
+
+        private void _buttonZoomPlus_Click( object sender, EventArgs e )
+        {
+            _viewPort.ZoomIn( 500 );
+        }
+
+        private void _buttonZoomMinus_Click( object sender, EventArgs e )
+        {
+            _viewPort.ZoomOut( 500 );
         }
 
     }

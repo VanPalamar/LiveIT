@@ -33,6 +33,8 @@
             this._snowButton = new System.Windows.Forms.Button();
             this._desertButton = new System.Windows.Forms.Button();
             this._grassButton = new System.Windows.Forms.Button();
+            this._buttonZoomPlus = new System.Windows.Forms.Button();
+            this._buttonZoomMinus = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // _waterButton
@@ -85,11 +87,33 @@
             this._grassButton.UseVisualStyleBackColor = true;
             this._grassButton.Click += new System.EventHandler(this._grassButton_Click);
             // 
+            // _buttonZoomPlus
+            // 
+            this._buttonZoomPlus.Location = new System.Drawing.Point(13, 369);
+            this._buttonZoomPlus.Name = "_buttonZoomPlus";
+            this._buttonZoomPlus.Size = new System.Drawing.Size(75, 23);
+            this._buttonZoomPlus.TabIndex = 5;
+            this._buttonZoomPlus.Text = "Zoom+";
+            this._buttonZoomPlus.UseVisualStyleBackColor = true;
+            this._buttonZoomPlus.Click += new System.EventHandler(this._buttonZoomPlus_Click);
+            // 
+            // _buttonZoomMinus
+            // 
+            this._buttonZoomMinus.Location = new System.Drawing.Point(13, 427);
+            this._buttonZoomMinus.Name = "_buttonZoomMinus";
+            this._buttonZoomMinus.Size = new System.Drawing.Size(75, 23);
+            this._buttonZoomMinus.TabIndex = 6;
+            this._buttonZoomMinus.Text = "Zoom-";
+            this._buttonZoomMinus.UseVisualStyleBackColor = true;
+            this._buttonZoomMinus.Click += new System.EventHandler(this._buttonZoomMinus_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 962);
+            this.Controls.Add(this._buttonZoomMinus);
+            this.Controls.Add(this._buttonZoomPlus);
             this.Controls.Add(this._grassButton);
             this.Controls.Add(this._desertButton);
             this.Controls.Add(this._snowButton);
@@ -115,6 +139,8 @@
         private System.Windows.Forms.Button _snowButton;
         private System.Windows.Forms.Button _desertButton;
         private System.Windows.Forms.Button _grassButton;
+        private System.Windows.Forms.Button _buttonZoomPlus;
+        private System.Windows.Forms.Button _buttonZoomMinus;
 
     }
 }
