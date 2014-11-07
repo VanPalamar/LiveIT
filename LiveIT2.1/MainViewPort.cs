@@ -17,19 +17,22 @@ namespace LiveIT2._1
         int _offsetY = 0;
         Rectangle R;
         Box _selectedBox;
+        Texture _texture;
         public MainViewPort( Map map, int Width, int Height )
         {
             _viewPort = new Rectangle( 0, 0, Width, Height );
             _map = map;
             R = _viewPort;
+            _texture = new Texture();
+
         }
 
-        public void Draw( Graphics g, Bitmap b )
+        public void Draw( Graphics g )
         {
             _boxList = _map.GetOverlappedBoxes(R);
             foreach( Box boxs in _boxList )
             {
-                g.DrawImage(b, new Rectangle(boxs.Area.X - _offsetX, boxs.Area.Y - _offsetY, boxs.Area.Width, boxs.Area.Height));
+                g.DrawImage(_texture.LoadTexture(boxs), new Rectangle(boxs.Area.X - _offsetX, boxs.Area.Y - _offsetY, boxs.Area.Width, boxs.Area.Height));
                 g.DrawRectangle(Pens.Red, new Rectangle(boxs.Area.X - _offsetX, boxs.Area.Y - _offsetY, boxs.Area.Width, boxs.Area.Height));
                 g.DrawRectangle( Pens.White, _viewPort );
             }

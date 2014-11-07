@@ -19,7 +19,7 @@ namespace LiveIT2._1
             _map = map;
             _line = line;
             _column = column;
-            _ground = BoxGround.Grass;
+            _ground = BoxGround.Forest;
         }
 
         public Point Location

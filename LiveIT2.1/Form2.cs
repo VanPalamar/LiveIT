@@ -25,13 +25,11 @@ namespace LiveIT2._1
         bool down;
         bool _changeTexture = false;
 
-        string _selectedTexture;
+        BoxGround _selectedTexture;
 
         Timer t;
 
         Bitmap _background;
-        Bitmap _textureGrass, _textureWater, _textureDirt, _textureSnow, _textureDesert;
-
         Map _map;
   
         Size _selectionCursorWidth;
@@ -46,15 +44,10 @@ namespace LiveIT2._1
         private void Form1_Load( object sender, EventArgs e )
         {
             this.DoubleBuffered = true;
-            _selectedTexture = "grass";
+            _selectedTexture = BoxGround.Grass;
             _background = new Bitmap( this.Width, this.Height );
             _map = new Map( 50, 2 );
-            _textureGrass = new Bitmap(@"..\..\..\assets\Grass.jpg");
-            _textureWater = new Bitmap( @"..\..\..\assets\Water.jpg" );
-            _textureDirt = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
-            _textureSnow = new Bitmap( @"..\..\..\assets\Snow.jpg" );
-            _textureDesert = new Bitmap( @"..\..\..\assets\Desert.jpg" );
-
+            
             _boxWidth = _map.BoxSize;
 
              _viewPort = new MainViewPort( _map, this.Width, this.Height );
@@ -65,16 +58,6 @@ namespace LiveIT2._1
 
             _selectionCursorWidth = new Size(_boxWidth, _boxWidth);
             this.MouseWheel += new MouseEventHandler(T_mouseWheel);
-
-
-            _texturesDictionnary = new Dictionary<string, Bitmap>()
-	            {
-	                {"grass", _textureGrass},
-	                {"water", _textureWater},
-	                {"dirt", _textureDirt},
-	                {"snow", _textureSnow},
-                    {"desert", _textureDesert}         
-	            };
 
             t = new Timer();
             t.Interval = 10;
@@ -129,7 +112,7 @@ namespace LiveIT2._1
             Rectangle _rMouse = new Rectangle( new Point( Cursor.Position.X, Cursor.Position.Y ), _selectionCursorWidth );
             _screenGraphic.Clear( Color.FromArgb( 255, Color.Black ) );
 
-            _viewPort.Draw( _screenGraphic, _textureGrass );
+            _viewPort.Draw( _screenGraphic );
             _viewPort.DrawMouseSelector(_screenGraphic, _rMouse);
 
             _changeTexture = false;
@@ -154,32 +137,32 @@ namespace LiveIT2._1
 
         private void Form1_MouseClick( object sender, MouseEventArgs e )
         {
-            _changeTexture = true;
+            _viewPort.SelectedBox.Ground = _selectedTexture ;
         }
 
         private void _waterButton_Click( object sender, EventArgs e )
         {
-            _selectedTexture = "water";
+            _selectedTexture = BoxGround.Water;
         }
 
         private void _dirtButton_Click( object sender, EventArgs e )
         {
-            _selectedTexture = "dirt";
+            _selectedTexture = BoxGround.Forest;
         }
 
         private void _snowButton_Click( object sender, EventArgs e )
         {
-            _selectedTexture = "snow";
+            _selectedTexture = BoxGround.Snow;
         }
 
         private void _desertButton_Click( object sender, EventArgs e )
         {
-            _selectedTexture = "desert";
+            _selectedTexture = BoxGround.Desert;
         }
 
         private void _grassButton_Click( object sender, EventArgs e )
         {
-            _selectedTexture = "grass";
+            _selectedTexture = BoxGround.Grass;
         }
 
         private void _buttonZoomPlus_Click( object sender, EventArgs e )
