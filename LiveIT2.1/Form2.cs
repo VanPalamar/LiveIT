@@ -137,7 +137,10 @@ namespace LiveIT2._1
 
         private void Form1_MouseClick( object sender, MouseEventArgs e )
         {
-            _viewPort.SelectedBox.Ground = _selectedTexture ;
+            foreach( Box box in _viewPort.SelectedBox )
+            {
+                box.Ground = _selectedTexture;
+            }
         }
 
         private void _waterButton_Click( object sender, EventArgs e )

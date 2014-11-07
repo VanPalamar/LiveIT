@@ -68,6 +68,17 @@ namespace LiveIT2._1
             get { return _column; }
            
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="source">Rectangle in centimeters inside the box.</param>
+        /// <param name="target">Rectangle in pixel in the Graphics.</param>
+        internal void Draw( Graphics g, Rectangle source, Rectangle target )
+        {
+            
+        }
         
     }
 }

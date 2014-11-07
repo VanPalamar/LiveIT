@@ -27,7 +27,6 @@ namespace LiveIT2._1
                     return _textureDesert;
                 default :
                     return _textureGrass;
-
             }
         }
 

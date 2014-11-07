@@ -10,19 +10,19 @@ namespace LiveIT2._1
     public class Map
     {
         readonly Box[] _boxes;
-        readonly int _mapSize;
+        readonly int _boxCountPerLine;
         // Box size in centimeter.
         readonly int _boxSize;
 
-        public Map( int mapSize, int boxSizeInMeter )
+        public Map( int boxCountPerLine, int boxSizeInMeter )
         {
-            _mapSize = mapSize;
-            _boxes = new Box[mapSize * mapSize];
+            _boxCountPerLine = boxCountPerLine;
+            _boxes = new Box[boxCountPerLine * boxCountPerLine];
             _boxSize = boxSizeInMeter * 100;
             int count = 0;
-            for( int i = 0; i < _mapSize; i++ )
+            for( int i = 0; i < _boxCountPerLine; i++ )
             {
-                for( int j = 0; j < _mapSize; j++ )
+                for( int j = 0; j < _boxCountPerLine; j++ )
                 {
                     _boxes[count++] = new Box( i, j, this );
                 }
@@ -39,11 +39,19 @@ namespace LiveIT2._1
         }
 
         /// <summary>
-        /// Gets the map size (the number of lines and number of columns).
+        /// Gets the number of lines and number of columns.
+        /// </summary>
+        public int BoxCountPerLine
+        {
+            get { return _boxCountPerLine; }
+        }
+
+        /// <summary>
+        /// Gets the size of the map in centimeters.
         /// </summary>
         public int MapSize
         {
-            get { return _mapSize; }
+            get { return _boxCountPerLine * _boxSize; }
         }
 
         /// <summary>
@@ -57,18 +65,25 @@ namespace LiveIT2._1
         {
             get
             {
-                if (line < 0 || line >= _mapSize
-                    || column < 0 || column > _mapSize) return null;
-                return _boxes[line*_mapSize + column];
+                if (line < 0 || line >= _boxCountPerLine
+                    || column < 0 || column > _boxCountPerLine) return null;
+                return _boxes[line*_boxCountPerLine + column];
             }
         }
 
-        public List<Box> GetOverlappedBoxes(Rectangle r)
+        public List<Box> GetOverlappedBoxes(Rectangle viewPort)
         {
             List<Box> boxList = new List<Box>();
             for( int i = 0; i < _boxes.Length; i++ )
             {
-                if( _boxes[i].Area.IntersectsWith( r ) )
+                Box b = _boxes[i];
+
+                Rectangle rIntersect =  b.Area;
+                rIntersect.Intersect( viewPort );
+                if( rIntersect.IsEmpty ) continue;
+                rIntersect.Offset( -b.Area.Left, -b.Area.Top );
+
+                if( _boxes[i].Area.IntersectsWith( viewPort ) )
                 {
                     boxList.Add( _boxes[i] );
                 }
