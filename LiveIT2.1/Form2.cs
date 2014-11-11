@@ -23,7 +23,6 @@ namespace LiveIT2._1
         bool left;
         bool up;
         bool down;
-        bool _changeTexture = false;
 
         BoxGround _selectedTexture;
 
@@ -34,8 +33,6 @@ namespace LiveIT2._1
   
         Size _selectionCursorWidth;
         Rectangle _mouseRect;
-
-        Dictionary<string, Bitmap> _texturesDictionnary;
 
         MainViewPort _viewPort;
 
@@ -50,7 +47,7 @@ namespace LiveIT2._1
             
             _boxWidth = _map.BoxSize;
 
-             _viewPort = new MainViewPort( _map, this.Width, this.Height );
+             _viewPort = new MainViewPort( _map);
             _mouseRect = new Rectangle( 0, 0, 100, 100 );
 
             g = this.CreateGraphics();
@@ -102,10 +99,10 @@ namespace LiveIT2._1
         public void MoveRectangle( Direction d )
         {
             int speed = 45;
-            if( d == Direction.Down ) { _viewPort.MoveDown( speed ); }
-            if( d == Direction.Up ) { _viewPort.MoveUp( speed ); }
-            if( d == Direction.Right ) { _viewPort.MoveRight( speed ); }
-            if( d == Direction.Left ) { _viewPort.MoveLeft( speed ); }
+            if( d == Direction.Down ) { _viewPort.MoveY(speed); }
+            if (d == Direction.Up) { _viewPort.MoveY(-speed); }
+            if (d == Direction.Right) { _viewPort.MoveX(speed); }
+            if (d == Direction.Left) { _viewPort.MoveX(-speed); }
         }
         public Bitmap Draw()
         {
@@ -114,8 +111,6 @@ namespace LiveIT2._1
 
             _viewPort.Draw( _screenGraphic );
             _viewPort.DrawMouseSelector(_screenGraphic, _rMouse);
-
-            _changeTexture = false;
             return _background;
         }
 

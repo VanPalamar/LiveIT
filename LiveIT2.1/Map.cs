@@ -85,7 +85,7 @@ namespace LiveIT2._1
 
                 if( _boxes[i].Area.IntersectsWith( viewPort ) )
                 {
-                    boxList.Add( _boxes[i] );
+                    boxList.Add( b );
                 }
             }
             return boxList;

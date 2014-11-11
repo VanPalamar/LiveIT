@@ -17,13 +17,12 @@ namespace LiveIT2._1
         Map _map;
         int _offsetX = 0;
         int _offsetY = 0;
-        Box _selectedBox;
         List<Box> _selectedBoxes;
         Texture _texture;
-        public MainViewPort( Map map, int Width, int Height )
+        public MainViewPort( Map map)
         {
-            _viewPort = new Rectangle( 0, 0, _map.MapSize, _map.MapSize );
             _map = map;
+            _viewPort = new Rectangle( 0, 0, _map.MapSize, _map.MapSize );           
             _texture = new Texture();
             _selectedBoxes = new List<Box>();
         }
@@ -85,11 +84,11 @@ namespace LiveIT2._1
                 }
             }
         }
-        public void OffsetX(int centimeters) 
+        public void MoveX(int centimeters) 
         {
             Offset( new Point( centimeters, 0 ) );
         }
-        public void OffsetY( int centimeters )
+        public void MoveY( int centimeters )
         {
             Offset( new Point( 0, centimeters ) );
         }
