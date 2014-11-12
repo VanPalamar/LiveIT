@@ -22,22 +22,23 @@ namespace LiveIT2._1
         public MainViewPort( Map map)
         {
             _map = map;
-            _viewPort = new Rectangle( 0, 0, _map.MapSize, _map.MapSize );           
+            _viewPort = new Rectangle( 0, 0, 200, 200 );           
             _texture = new Texture();
             _selectedBoxes = new List<Box>();
         }
 
         public void Draw( Graphics g )
         {
+            int _count = 0;
             _boxList = _map.GetOverlappedBoxes(_viewPort);
             foreach( Box boxs in _boxList )
             {
-
-                g.DrawImage(_texture.LoadTexture(boxs), new Rectangle(boxs.Area.X - _offsetX, boxs.Area.Y - _offsetY, boxs.Area.Width, boxs.Area.Height));
-                g.DrawRectangle(Pens.Red, new Rectangle(boxs.Area.X - _offsetX, boxs.Area.Y - _offsetY, boxs.Area.Width, boxs.Area.Height));
+                boxs.Draw( g, _viewPort, _texture );
+                g.DrawRectangle(Pens.Red, new Rectangle(boxs.Area.X, boxs.Area.Y, boxs.Area.Width, boxs.Area.Height));
                 g.DrawRectangle( Pens.White, _viewPort );
             }
         }
+
 
         public double ZoomFactor
         {
@@ -84,6 +85,8 @@ namespace LiveIT2._1
                 }
             }
         }
+
+
         public void MoveX(int centimeters) 
         {
             Offset( new Point( centimeters, 0 ) );

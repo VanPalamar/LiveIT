@@ -37,7 +37,7 @@ namespace LiveIT2._1
             _textureForest = new Bitmap( @"..\..\..\assets\Dirt.jpg" );
             _textureSnow = new Bitmap( @"..\..\..\assets\Snow.jpg" );
             _textureDesert = new Bitmap( @"..\..\..\assets\Desert.jpg" );
-
         }
+
     }
 }

@@ -13,6 +13,7 @@ namespace LiveIT2._1
         int _line;
         int _column;
         BoxGround _ground;
+        Rectangle _source;
 
         public Box( int line, int column, Map map )
         {
@@ -69,15 +70,21 @@ namespace LiveIT2._1
            
         }
 
+        public Rectangle Source
+        {
+            get { return _source; }
+            set { _source = value; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="source">Rectangle in centimeters inside the box.</param>
         /// <param name="target">Rectangle in pixel in the Graphics.</param>
-        internal void Draw( Graphics g, Rectangle source, Rectangle target )
+        /// <param name="textures">Texture object to apply the texture on the box </param>
+        internal void Draw( Graphics g, Rectangle target, Texture textures )
         {
-            
+            g.DrawImage(textures.LoadTexture(this), new Rectangle( this.Area.X, this.Area.Y, this.Source.Width, this.Source.Height ) );
         }
         
     }

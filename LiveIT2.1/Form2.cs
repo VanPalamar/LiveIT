@@ -55,8 +55,8 @@ namespace LiveIT2._1
 
             _selectionCursorWidth = new Size(_boxWidth, _boxWidth);
             this.MouseWheel += new MouseEventHandler(T_mouseWheel);
-
             t = new Timer();
+            
             t.Interval = 10;
             t.Tick += new EventHandler( t_Tick );
             t.Start();
@@ -120,6 +120,7 @@ namespace LiveIT2._1
             if( e.KeyCode == Keys.Q ) { left = true; }
             if( e.KeyCode == Keys.S ) { down = true; }
             if( e.KeyCode == Keys.D ) { right = true; }
+            if( e.KeyCode == Keys.Add ) { _viewPort.ZoomFactor = 0; }
         }
 
         private void Form1_KeyUp( object sender, KeyEventArgs e )
