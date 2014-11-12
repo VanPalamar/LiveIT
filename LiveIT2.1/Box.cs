@@ -85,6 +85,7 @@ namespace LiveIT2._1
         internal void Draw( Graphics g, Rectangle target, Texture textures )
         {
             g.DrawImage(textures.LoadTexture(this), new Rectangle( this.Area.X, this.Area.Y, this.Source.Width, this.Source.Height ) );
+
         }
         
     }
