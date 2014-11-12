@@ -82,7 +82,7 @@ namespace LiveIT2._1
                 rIntersect.Intersect( viewPort );
                 if( rIntersect.IsEmpty ) continue;
                 rIntersect.Offset( -b.Area.Left, -b.Area.Top );
-
+                b.Source = rIntersect;
                 if( _boxes[i].Area.IntersectsWith( viewPort ) )
                 {
                     boxList.Add( b );

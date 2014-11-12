@@ -43,7 +43,7 @@ namespace LiveIT2._1
             this.DoubleBuffered = true;
             _selectedTexture = BoxGround.Grass;
             _background = new Bitmap( this.Width, this.Height );
-            _map = new Map( 50, 2 );
+            _map = new Map( 50, 1 );
             
             _boxWidth = _map.BoxSize;
 

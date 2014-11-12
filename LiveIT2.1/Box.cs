@@ -13,6 +13,7 @@ namespace LiveIT2._1
         int _line;
         int _column;
         BoxGround _ground;
+         Rectangle _source;
 
         public Box( int line, int column, Map map )
         {
@@ -69,6 +70,13 @@ namespace LiveIT2._1
            
         }
 
+        public Rectangle Source
+        {
+            get { return _source; }
+            set { _source = value; }
+            
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -77,7 +85,12 @@ namespace LiveIT2._1
         /// <param name="target">Rectangle in pixel in the Graphics.</param>
         internal void Draw( Graphics g, Rectangle source, Rectangle target )
         {
-            
+
+            Graphics _gBox = g;
+            Rectangle _source = source;
+            Rectangle _target = target;
+
+          
         }
         
     }
