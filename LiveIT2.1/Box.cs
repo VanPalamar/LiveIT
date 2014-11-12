@@ -13,7 +13,11 @@ namespace LiveIT2._1
         int _line;
         int _column;
         BoxGround _ground;
+<<<<<<< HEAD
         Rectangle _source;
+=======
+         Rectangle _source;
+>>>>>>> 81a3faee6c47a2a4a52bb7d6d8f73c4aa435cb07
 
         public Box( int line, int column, Map map )
         {
@@ -74,6 +78,10 @@ namespace LiveIT2._1
         {
             get { return _source; }
             set { _source = value; }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 81a3faee6c47a2a4a52bb7d6d8f73c4aa435cb07
         }
 
         /// <summary>
@@ -84,7 +92,16 @@ namespace LiveIT2._1
         /// <param name="textures">Texture object to apply the texture on the box </param>
         internal void Draw( Graphics g, Rectangle target, Texture textures )
         {
+<<<<<<< HEAD
             g.DrawImage(textures.LoadTexture(this), new Rectangle( this.Area.X, this.Area.Y, this.Source.Width, this.Source.Height ) );
+=======
+
+            Graphics _gBox = g;
+            Rectangle _source = source;
+            Rectangle _target = target;
+
+          
+>>>>>>> 81a3faee6c47a2a4a52bb7d6d8f73c4aa435cb07
         }
         
     }
