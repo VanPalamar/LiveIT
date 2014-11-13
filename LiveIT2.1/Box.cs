@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LiveIT2._1
 {
@@ -83,9 +84,10 @@ namespace LiveIT2._1
         /// <param name="g"></param>
         /// <param name="target">Rectangle in pixel in the Graphics.</param>
         /// <param name="textures">Texture object to apply the texture on the box </param>
-        internal void Draw( Graphics g, Rectangle target, Texture textures )
-        {
-            g.DrawImage(textures.LoadTexture(this), new Rectangle( this.Area.X, this.Area.Y, this.Source.Width, this.Source.Height ) );
+        internal void Draw( Graphics g, Rectangle target, Texture textures, Rectangle viewPort)
+        {        
+            g.DrawRectangle( Pens.BurlyWood, target );
+            g.DrawImage(textures.LoadTexture(this), new Rectangle(this.Area.X - viewPort.X, this.Area.Y - viewPort.Y , this.Source.Width, this.Source.Height) );               
         }
         
     }

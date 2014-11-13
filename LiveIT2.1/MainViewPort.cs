@@ -13,7 +13,7 @@ namespace LiveIT2._1
     {
         const int _minimalWidthInCentimeter = 10 * 100;
         List<Box> _boxList;
-        Rectangle _viewPort;
+        Rectangle _viewPort, _screen;
         Map _map;
         int _offsetX = 0;
         int _offsetY = 0;
@@ -22,9 +22,10 @@ namespace LiveIT2._1
         public MainViewPort( Map map)
         {
             _map = map;
-            _viewPort = new Rectangle( 0, 0, 200, 200 );           
+            _viewPort = new Rectangle( 0, 0,400,400);           
             _texture = new Texture();
             _selectedBoxes = new List<Box>();
+            _screen = new Rectangle( 0, 0, 400,400 );
         }
 
         public void Draw( Graphics g )
@@ -33,7 +34,7 @@ namespace LiveIT2._1
             _boxList = _map.GetOverlappedBoxes(_viewPort);
             foreach( Box boxs in _boxList )
             {
-                boxs.Draw( g, _viewPort, _texture );
+                boxs.Draw( g, _screen, _texture, _viewPort );
                 g.DrawRectangle(Pens.Red, new Rectangle(boxs.Area.X, boxs.Area.Y, boxs.Area.Width, boxs.Area.Height));
                 g.DrawRectangle( Pens.White, _viewPort );
             }
