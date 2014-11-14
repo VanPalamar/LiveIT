@@ -87,7 +87,8 @@ namespace LiveIT2._1
         internal void Draw( Graphics g, Rectangle target, Texture textures, Rectangle viewPort)
         {        
             g.DrawRectangle( Pens.BurlyWood, target );
-            g.DrawImage(textures.LoadTexture(this), new Rectangle(this.Area.X - viewPort.X, this.Area.Y - viewPort.Y , this.Source.Width, this.Source.Height) );               
+            int rapport = (int)(((double)this.Source.Width / (double)viewPort.Width) * target.Width);
+            g.DrawImage( textures.LoadTexture( this ), new Rectangle( (this.Area.X - viewPort.X) , (this.Area.Y - viewPort.Y), rapport, rapport));               
         }
         
     }

@@ -22,7 +22,7 @@ namespace LiveIT2._1
         public MainViewPort( Map map)
         {
             _map = map;
-            _viewPort = new Rectangle( 0, 0, _map.MapSize, _map.MapSize );           
+            _viewPort = new Rectangle( 0, 0, 800, 800 );           
             _texture = new Texture();
             _selectedBoxes = new List<Box>();
             _screen = new Rectangle( 0, 0, 600,600 );
@@ -30,7 +30,6 @@ namespace LiveIT2._1
 
         public void Draw( Graphics g )
         {
-            int _count = 0;
             _boxList = _map.GetOverlappedBoxes(_viewPort);
             foreach( Box boxs in _boxList )
             {

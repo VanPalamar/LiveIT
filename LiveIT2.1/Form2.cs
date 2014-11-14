@@ -71,7 +71,7 @@ namespace LiveIT2._1
                 //    _selectionCursorWidth.Height += _boxWidth;
                 //    _selectionCursorWidth.Width += _boxWidth;
                 //}
-                _viewPort.Zoom( 100 );
+                _viewPort.Zoom( - 400 );
 
             }
             else
@@ -81,7 +81,7 @@ namespace LiveIT2._1
                 //    _selectionCursorWidth.Height -= _boxWidth;
                 //    _selectionCursorWidth.Width -= _boxWidth;
                 //}
-                _viewPort.Zoom( -100 );
+                _viewPort.Zoom( 400 );
             }
         }
 
