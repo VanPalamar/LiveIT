@@ -66,20 +66,22 @@ namespace LiveIT2._1
         {
             if (e.Delta >= 1)
             {
-                if( _selectionCursorWidth.Height <= _boxWidth * 5)
-                {
-                    _selectionCursorWidth.Height += _boxWidth;
-                    _selectionCursorWidth.Width += _boxWidth;
-                }
+                //if( _selectionCursorWidth.Height <= _boxWidth * 5)
+                //{
+                //    _selectionCursorWidth.Height += _boxWidth;
+                //    _selectionCursorWidth.Width += _boxWidth;
+                //}
+                _viewPort.Zoom( 100 );
 
             }
             else
             {
-                if( _selectionCursorWidth.Height >= _boxWidth / 2)
-                {
-                    _selectionCursorWidth.Height -= _boxWidth;
-                    _selectionCursorWidth.Width -= _boxWidth;
-                }
+                //if( _selectionCursorWidth.Height >= _boxWidth / 2)
+                //{
+                //    _selectionCursorWidth.Height -= _boxWidth;
+                //    _selectionCursorWidth.Width -= _boxWidth;
+                //}
+                _viewPort.Zoom( -100 );
             }
         }
 

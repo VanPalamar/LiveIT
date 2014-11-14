@@ -11,7 +11,7 @@ namespace LiveIT2._1
 {
     public class MainViewPort
     {
-        const int _minimalWidthInCentimeter = 10 * 100;
+        const int _minimalWidthInCentimeter = 200;
         List<Box> _boxList;
         Rectangle _viewPort, _screen;
         Map _map;
@@ -22,10 +22,10 @@ namespace LiveIT2._1
         public MainViewPort( Map map)
         {
             _map = map;
-            _viewPort = new Rectangle( 0, 0,400,400);           
+            _viewPort = new Rectangle( 0, 0, _map.MapSize, _map.MapSize );           
             _texture = new Texture();
             _selectedBoxes = new List<Box>();
-            _screen = new Rectangle( 0, 0, 400,400 );
+            _screen = new Rectangle( 0, 0, 600,600 );
         }
 
         public void Draw( Graphics g )
@@ -61,6 +61,26 @@ namespace LiveIT2._1
                     _viewPort.Width = newWidth;
                 }
             }
+        }
+
+        public void Zoom( int meters )
+        {
+            _viewPort.Width += meters;
+            _viewPort.Height += meters;
+            if( _viewPort.Width < _minimalWidthInCentimeter && _viewPort.Height < _minimalWidthInCentimeter )
+            {
+                _viewPort.Width = _minimalWidthInCentimeter;
+                _viewPort.Height = _minimalWidthInCentimeter;
+            }
+
+            if( _viewPort.Width > _map.MapSize )
+            {
+                _viewPort.Height = _map.MapSize;
+                _viewPort.Width = _map.MapSize;
+            }
+            
+            
+            
         }
 
         public void Offset( Point delta )
